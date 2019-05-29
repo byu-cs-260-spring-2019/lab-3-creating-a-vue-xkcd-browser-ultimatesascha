@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="./styles.css" />
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+  <title>XKCD Browser</title>
+</head>
+
+<body>
+  <h1>XKCD Browser</h1>
+  <div id="app">
+      <div v-if="loading">
+          <p>Loading...</p>          <!--v-if and v-else are if else statements-->
+      </div>
+      <div v-else>
+        <p>
+          <button @click="firstComic">First</button>
+          <button @click="previousComic">Previous</button>
+          <button @click="randomComic">Random</button>
+          <button @click="nextComic">Next</button>    
+          <button @click="lastComic">Last</button>            
+        </p>
+        <h2>{{current.title}}</h2>
+        <img :src="current.img" :alt="current.alt"> <!--took out v-bind cuz not needed.-->
+        <p>{{current.alt}}</p>
+        <p><i>#{{current.num}}, drawn on {{current.day}} {{month}} {{current.year}}</i></p>
+        <star-rating @rating-selected ="setRating" active-color="#ff0000" :increment="0.5" :show-rating="false"></star-rating>
+        <p>Average Rating {{ratings[number]}}</p>
+        <h3>Add a Comment</h3>
+        <form @submit.prevent="addComment">
+          <input v-model="addedName" placeholder="Name"></p>
+          <textarea v-model="addedComment"></textarea>
+          <br />
+          <button type="submit">Comment</button>
+        </form>
+        <h3>Comments</h3>
+        <div v-for="comment in comments[number]">
+          <hr>
+          <p>{{comment.text}}</p>
+          <p>{{comment.time}}</p>
+          <p><i>-- {{comment.author}}</i></p>
+        </div>
+  
+      </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.2/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/vue-star-rating/dist/star-rating.min.js"></script>
+  <script src="./script.js"></script>
+</body>
+<footer>
+<a href="https://github.com/byu-cs-260-spring-2019/lab-3-creating-a-vue-xkcd-browser-ultimatesascha">GitHub</a>
+</footer>
+</html>
